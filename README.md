@@ -16,7 +16,7 @@ and make a copy to directly run the verifying computations on broswer.
 
 Otherwise, if you are familiar with the command line and would like to run the 
 verifying notebook locally, or even run the entire computation for the proof
-from scratch (which might takes hours depending on your hardware), 
+from scratch (which might take hours depending on your hardware), 
 follow the instructions below.
 
 ## Prerequisites
