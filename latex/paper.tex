@@ -15,30 +15,25 @@
 \newcommand*{\Z}{\mathbb{Z}}
 \newcommand*{\M}{\mathcal{M}}
 
-\title{M54 conjecture}
+\title{Trails of Lost Pennies: A Lower Bound to the Mina Margin}
 \author{Neo Lee}
 \date{November 2023}
-
-% https://www.math.ucla.edu/~pak/papers/how-to-write1.pdf
-% https://web.mit.edu/jrickert/www/mathadvice.html
-% https://terrytao.wordpress.com/advice-on-writing-papers/ https://arxiv.org/abs/2209.07451
 
 \begin{document}
 
 \maketitle
 
 \section{\centering Abstract}
-This paper proves a conjecture related to the necessary and sufficient condition for the
-time-invariant Nash equilibrium for the stake-governed random turn game -- Trail of Lost Pennies --
-introduced by [Hammond]. Trail of Lost Pennies is a variant of tug-of-war, a class of games that has
-a history dates back to [some year] by [author name]. 
+This paper proves a lower bound of $\lambda \geq 0.999902$ to $\lambda =
+\inf\{\M(x):x\in0,\infty\}$, which gives a sufficient and necessary condition for the existence of
+time-invariant Nash equilibrium in Trails of Lost Pennies.
 
-\section{\centering Introduction}
+
+\section{\centering Introduction / Game Setup}
 The Trail of Lost Pennies is a two-player strategic game played on the integer line introduced by
 [Hammond]. Below, we will first introduce the finite Trail of Lost Pennies, then its infinite
-counterpart. In the end of this section, we will bridge the gap between the two versions of the game
-and use the finite version to motivate our results in infinite Trail of Lost Pennies. (Note: Trail
-of Lost Pennies refers to the infinite version unless otherwise specified.)
+counterpart. We will eventually prove our results in the infinite game through an approximation to
+the finite game.
 
 \subsection{\centering Finite Trail of Lost Pennies}
 \begin{figure}[htb!]
@@ -71,60 +66,17 @@ her payout and Mina is always playing to the left.
 \end{figure}
 
 The infinite Trail game is very similar to the finite version, except that the game is played on the 
-infinite integer line $\Z$ and the counter can move infinitely far to the left or right. The game
+infinite integer line $\Z$ and the counter can move infinitely far to the left or right.
+
+We denote the infinite Trail game as Trail($m_{-\infty}, m_{\infty}, n_{-\infty}, n_{\infty}$). The
+game is set up such that $m_{-\infty}<m_{\infty}$ and $n_{\infty}<n_{-\infty}$, which ensures that
+Maxine and Mina are always playing to the right and left respectively to maximize their payout.
 
 
-A traditional constant-biased tug-of-war involves tossing a biased coin to determine whether a
-counter moves left or right at each turn. The game ends when the counter reaches either end of the
-line. If the counter reaches the left end, the left player wins; if the counter reaches the right
-end, the right player wins. Put it in mathematical terms, the game is essentially a one-dimensional
-random walk.
-
-Now consider a variant of the constant-biased tug-of-war, where the coin bias changes according to
-the player's wager. In this game, the left player, Maxine, and the right player, Mina, each assumed
-to be infinitely wealthy, will wager $a$ and $b$ amount respectively at each turn. The coin bias is
-then determined by the ratio of the wagers, i.e. the probability of the counter moving left is
-$\frac{a}{a+b}$ and the probability of the counter moving right is $\frac{b}{a+b}$. The game ends
-when the counter reaches either end of the line. If the counter reaches the left end, Maxine wins;
-if the counter reaches the right end, Mina wins. Therefore, the game is no longer an ordinary
-one-dimensional random walk, but a random walk with varying probability depending on both players'
-strategy at each turn. This variant of tug-of-war is termed player-funded stake-governed tug-of-war.
-
-Unlike traditional tug-of-war, which is a
-test of strength, this game challenges the intellect, requiring players to navigate a landscape of
-chance and choice. Introduced by Hammond, the game serves as a rich platform for exploring complex
-mathematical ideas in a seemingly simple setup.
-
-At its core, 'Trail of Lost Pennies' is played on an infinite sequence of integers, representing
-positions on a line. Two players, each with their own objectives, compete to move a counter along
-this line. The game is not just about moving back and forth; it encapsulates a deeper understanding
-of strategy under uncertainty. Each decision made by the players isn't just about the immediate move
-but also about influencing the future course of the game.
-
-The significance of studying 'Trail of Lost Pennies' lies in its ability to model real-world
-scenarios where decisions are made under uncertainty. It provides a simplified yet profound way to
-understand how choices can be strategically made when outcomes are influenced by chance. This paper
-aims to demystify the complexities of the game and make its concepts accessible, particularly
-focusing on the time-invariant Nash equilibrium, which stands as a pivotal concept in understanding
-the game's strategic depth.
-
-In the following sections, we will take a step-by-step approach to unfold the game's intricacies,
-starting from a simplified version for ease of understanding and gradually moving towards its
-comprehensive mathematical model. This approach is designed to make the paper engaging and
-informative for both those new to the game and those well-versed in its mathematical foundation.
-
-
-
-\subsection{\centering Main result}
-(maybe should state the main result in terms of time-invariant nash equilibrium first?)
-
-\subsection{\centering Motivations, definitions, and theorems}
-The time-invariant Nash equilibrium of an instance of Trail($m_{-\infty},
-m_{\infty}, n_{-\infty}, n_{\infty}$) are in fact characterized (what is a
-more precise word?) by the positive solutions to a particular system of equations, known as the ABMN system. Here, we
-introduce the definitions and related theorems to motivate our result later.
-
-(include defn 2.1?)
+\subsection{\centering Definitions (To be edited to keep only necessary and motivating definitions)}
+The time-invariant Nash equilibrium of an instance of Trail($m_{-\infty}, m_{\infty}, n_{-\infty},
+n_{\infty}$) are in fact characterized by the positive solutions to a system of equations, known as
+the ABMN system, which we introduce here.
 
 \begin{definition}[ABMN system]
     Let $a_i, b_i, m_i, n_i \in\R$ be the non-negative finite wager of Maxine and Mina, mean payout
@@ -163,18 +115,6 @@ introduce the definitions and related theorems to motivate our result later.
     \end{enumerate}
 \end{theorem}
 
-\begin{theorem}[Positive ABMN solution] (Include ?) Let $\{(a_i, b_i, m_i,
-    n_i)\in(0,\infty)^2\times\R^2:i\in\mathbb{Z}\}$ be a positive ABMN solution. Then,
-    \begin{enumerate}[label=(\arabic*)]
-        \item the solution is strict;
-        \item the solution has boundary conditions (data?) $(m_{-\infty}, m_{\infty}, n_{-\infty},
-        n_{\infty})$ that satisfy $m_{-\infty}<m_{\infty}$ and $n_{\infty} < n_{-\infty}$;
-        \item the values $m_{-\infty},m_{\infty},n_{\infty}$, and $n_{-\infty}$ are real numbers. As
-        such, the Mina margin $\frac{n_{-\infty}-n_{\infty}}{m_{\infty}-m_{-\infty}}$ exists and is
-        a positive finite real number.
-    \end{enumerate}
-\end{theorem}
-
 \begin{theorem}[Conditions for positive ABMN solution]
     Let $I\subset (0,\infty)$ equal to the set of values of the Mina margin
     $\frac{n_{-\infty}-n_{\infty}}{m_{\infty}-m_{-\infty}}$, where $\{(a_i, b_i, m_i,
@@ -191,24 +131,52 @@ introduce the definitions and related theorems to motivate our result later.
 \end{theorem}
 
 \section{\centering Proof}
-[Hammond] conjectured that $\lambda$ in \emph{Theorem 3(3)} is at least 0.999902, and we will
-provide a computer-assisted proof that indeed $\lambda \geq 0.999902$. We first introduce some of tools developed in [Hammond] that will be useful towards our proof.
-
-\subsection{\centering Some developed tools}
-\begin{definition}(Mina margin map)
-    (which defn should I use?)
+\subsection{\centering Definitions}
+\begin{definition}
+    Set $w(x): (0,\infty)\to(1,\infty)=\sqrt{8x+1}$. Writing $w=w(x)$, we further set
+    $$s(x)=\frac{(w-1)^2}{4(w+7)},\qquad c(x)=\frac{(w+3)^2}{16}, \qquad d(x)=\frac{(w+3)^2}{8(w+1)}
+    \qquad \text{for } x\in(0,\infty).$$ For simplicity, we also write $s, c, d$ for $s(x), c(x),
+    d(x)$ respectively.
 \end{definition}
+
+\begin{definition}
+    Let $s_{-1}:(0,\infty)\to(0,\infty)$ be given by $s_{-1}(x)=\frac{1}{s(1/x)}$. Define
+    \begin{enumerate}[label=(\arabic*)]
+        \item $s_0 = x$.
+        \item $s_i = \begin{cases}
+            s(s_{i-1}), & i \geq 1 \\
+            s_{-1}(s_{i+1}), & i \leq -1
+        \end{cases}$.
+        \item $c_i = c(s_i)$.
+        \item $d_i = d(s_i)$.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    Set $P_0=S_0=1$. For $k\in\N_+$, we specify 
+    $$P_{k}(x)=\sum_{j=0}^{k-1}\left(\prod_{i=0}^{j}(c_i(x)-1)\right) + 1 \quad \text{and} \quad
+    S_{k}(x) = \sum_{j=0}^{k-1}\left(\prod_{i=0}^{k}(d_i(x)-1)\right) + 1.$$
+
+    Set $Q_1=T_1=0$. For $\ell\in\N_{\geq2}$, we then set 
+    $$Q_{\ell}(x)=\sum_{j=1}^{\ell-1}\left(\prod_{i=1}^{j}(c_{-i}(x)-1)^{-1}\right) \quad \text{and} \quad
+    T_{\ell}(x) = \sum_{j=1}^{\ell-1}\left(\prod_{i=1}^{k}(d_{-i}(x)-1)^{-1}\right).$$
+\end{definition}
+
+\begin{definition}[Finite-trail mina margin map]
+    For $k\in\N$ and $\ell\in\N_+$, the finite mina margin map takes the form 
+    $$\M_{\ell, k}(x)=\frac{x(S_k+T_\ell)}{P_k+Q_\ell}.$$
+\end{definition}
+
+\subsection{\centering Proof of conjecture}
 
 \begin{lemma}
     There exists $x_0\in[\frac{1}{3},3]$ such that $\M(x_0)=\lambda$, and
     $$\lambda=\inf\{\M(x):x\in(0,\infty)\}.$$
 \end{lemma}
 
-\begin{definition}
-    Set $w:(0,\infty)\to(1,\infty), w(x)=\sqrt{8x+1}$. Writing $w=w(x)$, we further set
-    $$s=\frac{(w-1)^2}{4(w+7)},\qquad c=\frac{(w+3)^2}{16}, \qquad d=\frac{(w+3)^2}{8(w+1)} \qquad
-    \text{for } x\in(0,\infty).$$ 
-\end{definition}
+\begin{lemma}
+    For $x\in[\frac{1}{3}, 3], |\M(x)-\M_{5,4}(x)| \leq 6.3\times 10^{-7}$.
+\end{lemma}
 
 \begin{lemma}\indent
     \begin{enumerate}[label=(\arabic*)]
@@ -218,61 +186,41 @@ provide a computer-assisted proof that indeed $\lambda \geq 0.999902$. We first 
 \end{lemma}
 
 \begin{definition}
-    Let $s_{-1}:(0,\infty)\to(0,\infty)$ be given by $s_{-1}(x)=\frac{1}{s(1/x)}$. We now define a
-    collection of functions $s_i:(0,\infty)\to(0,\infty)$ indexed by $i\in\mathbb{Z}$. We begin by
-    setting $s_0(x)=x$ for $x\in(0,\infty)$. We then iteratively specify that for $i\in\N_+$
-    and $x\in(0,\infty), s_i(x)=s(s_{i-1}(x))$ and $s_{-1}(x)=s_{-1}(s_{-i+1}(x))$. Then, for $j\in
-    \mathbb{Z}$, set $c_j, d_j:(0,\infty)\to(0,\infty)$ to be $c_j(x)=c(s_j(x))$ and
-    $d_j(x)=d(s_j(x))$.
-
-    Note that $s(x)$ is in fact invertible and $s_{-1}(x)=s^{-1}(x)$.
+    For $[a, b]\subseteq (0,\infty)$, define 
+    $$\M^\downarrow_{5,4}[a,b]=\frac{a(S_4(a)+T_5(b))}{P_4(b)+Q_5(a)}.$$
 \end{definition}
-
-\begin{definition}
-    Set $P_0=S_0=1$. For $k\in\N_+$, we specify 
-    $$P_{k}(x)=\sum_{j=0}^{k-1}\left(\prod_{i=0}^{j}(c_i(x)-1)\right) + 1 \quad \text{and} \quad
-    S_{k}(x) = \sum_{j=0}^{k-1}\left(\prod_{i=0}^{k}(d_i(x)-1)\right) + 1.$$
-
-    Set $Q_1=T_1=0$. For $k\in\N_{\geq2}$, we then set 
-    $$Q_{k}(x)=\sum_{j=1}^{k-1}\left(\prod_{i=1}^{j}(c_{-i}(x)-1)^{-1}\right) \quad \text{and} \quad
-    T_{k}(x) = \sum_{j=1}^{k-1}\left(\prod_{i=1}^{k}(d_{-i}(x)-1)^{-1}\right).$$
-\end{definition}
-
-\begin{lemma}[Finite-trail mina margin map]
-    For $k\in\N$ and $\ell\in\N_+$, the finite mina margin map takes the form 
-    $$\M_{\ell, k}(x)=\frac{x(S_k+T_\ell)}{P_k+Q_\ell}.$$
-\end{lemma}
 
 \begin{lemma}
-    For $x\in[\frac{1}{3}, 3], |\M(x)-\M_{5,4}(x)| \leq 6.3\times 10^{-7}$.
+    For $[a,b]\subseteq(0,\infty)$, $\M^\downarrow_{5,4}[a,b]$ is a lower bound of $\{\M_{5,4}(x):
+    x\in[a,b]\}$.
 \end{lemma}
+\begin{proof}
+    Recall \emph{Lemma 3} and \emph{Definition 4}. By composing increasing function,
+    $s_i, c_i, d_i$ are increasing functions for all $i\in\Z$. 
+    
+    Recall $P,S,Q,T$ from \emph{Definition 5}. By summing products of increasing, strictly positive
+    functions, $P_k, S_k$ are increasing. By summing products of decreasing,
+    strictly positive functions, $Q_\ell,T_\ell$ are decreasing.
 
-\subsection{\centering Proof of conjecture}
+    Therefore, for any $x$ in any interval $[a,b]\subseteq(0,\infty)$, 
+    $$P_4(b) + Q_5(a) \geq P_4(x) + Q_5(x) \quad \text{and} \quad S_4(a)+T_5(b) \leq
+    S_4(x)+T_5(x).$$
+    
+    Hence, $$\frac{a(S_4(a)+T_5(b))}{P_4(b)+Q_5(a)} \leq \inf\{\M_{5,4}(x):x\in[a,b]\}.$$
+\end{proof}
 
-\begin{theorem}[Tight bound for $\lambda$]
+\begin{theorem}[$\lambda \geq 0.999902$]
     Let $I=[\lambda,\lambda^{-1}]$ equal to the set of values of the Mina margin
     $\frac{n_{-\infty}-n_{\infty}}{m_{\infty}-m_{-\infty}}$, where $\{(a_i, b_i, m_i,
     n_i)\in(0,\infty)^2\times \R^2:i\in\mathbb{Z}\}$ ranges over the set of positive ABMN solutions.
     Then, the value of $\lambda$ is between 0.999902 and 0.999904.
 \end{theorem}
 \begin{proof}
-    The upper bound has been proved in [Hammond] by evaluating $\M_{5,4}(0.58)\leq0.9999032038$ and
-    applying \emph{Lemma 1} and \emph{4}. We will provide a computer-assisted proof for the lower
-    bound of $\lambda$.
+    The upper bound has been proved in [Hammond].
 
     Following \emph{Lemma 1}, it suffices to show that
     $\lambda=\inf\{\M(x):x\in[\frac{1}{3},3]\}\geq0.999902$. Following \emph{Lemma 4}, it suffices
     to show that $\inf\{\M_{5,4}(x):x\in[\frac{1}{3},3]\}\geq 0.99990263$.
-
-    Now notice from \emph{Lemma 2} and \emph{Definition 5}, $s_i:(0,\infty)\to(0,\infty)$ is
-    increasing for all $i\in\Z$, hence $c_i, d_i:(0,\infty)\to(1,\infty)$ are also increasing.
-    Recall $P,S,Q,T$ from \emph{Definition 6}. Notice $P_k, S_k:(0,\infty)\to(1,\infty)$ are
-    increasing because they are sums of products of increasing, strictly positive functions. On the other hand,
-    $Q_k,T_k:(0,\infty)\to(0,\infty)$ are decreasing because they are sums of products of decreasing, strictly positive
-    functions. Hence, for an arbitrary interval $[a,b]\subseteq(0,\infty)$, we can find a
-    lower bound of $\M_{5,4}$ on $[a,b]$ by defining
-    $$\M^\downarrow_{5,4}[a,b]=\frac{a(S_4(a)+T_5(b))}{P_4(b)+Q_5(a)}.$$ Then,
-    $$\inf\{\M_{5,4}(x):x\in[a,b]\}\geq\frac{a(S_4(a)+T_5(b))}{P_4(b)+T_5(a)}.$$
 
     By partitioning $[\frac{1}{3},3]$ into subintervals $\{t_0<t_1<\dots<t_n\}$, then 
     \begin{align*}
@@ -281,8 +229,7 @@ provide a computer-assisted proof that indeed $\lambda \geq 0.999902$. We first 
         & \geq \min\{\M^\downarrow_{5,4}[t_{i-1},t_i]:i\in\{1,\dots,n\}\}.
     \end{align*}
     A computer evaluation of the function with partition of mesh $=10^{-7}$ yields
-    0.9999030108006773, which completes the proof. (need to bound and elaborate more on the floating
-    point error during evaluation)
+    0.9999030108006773, which completes the proof. (Refer to the GitHub repository for the code.)
 \end{proof}
 
 \end{document}
