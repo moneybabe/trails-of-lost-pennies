@@ -38,7 +38,7 @@ git clone https://github.com/moneybabe/trails-of-lost-pennies.git
 cd trails-of-lost-pennies
 ```
 
-###### From here, you have to use the command line interface to run the following commands.
+##### From here, you have to use the command line interface to run the following commands.
 3. Create a virtual environment:
 ```
 python3 -m venv env
@@ -64,10 +64,10 @@ pip install -r requirements.txt
 jupyter notebook verify.ipynb
 ```
 
-7. [Optional] Run the entire computation for the proof, which would output a comma separated
+7. [Optional] Run the entire computation for the proof (might take hours), which would output a comma separated
    value file `results.csv` containing the values of
    $\mathcal{M}_{5,4}^\downarrow[a,b]$ and the corresponding $a, b$ for
-   $[a, b]\in[1/3, 3]$:
+   $[a, b]\subseteq[1/3, 3]$:
 ```
 python main.py
 ```
