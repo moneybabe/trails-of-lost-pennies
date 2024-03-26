@@ -13,8 +13,8 @@ def process_interval_chunk(interval_chunk, l, k):
     return results
 
 def main():
-    interval = iv.linspace('1/3', '3', int(1e4))
-    workers = 16
+    interval = iv.linspace('1/3', '3', int(1e7))
+    workers = 8
     interval_chunks = np.array_split(np.array(list(zip(interval[:-1], interval[1:]))), workers)
 
     l, k = 5, 4
