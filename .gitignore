@@ -1,0 +1,8 @@
+__pycache__
+.DS_Store
+paper.fdb_latexmk
+paper.fls
+paper.synctex.gz
+paper.log
+paper.aux
+*.ipynb
