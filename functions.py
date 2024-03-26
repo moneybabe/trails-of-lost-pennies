@@ -1,19 +1,20 @@
-from mpmath import iv, ctx_iv    # type: ignore
+from mpmath import iv, ctx_iv
+from pprint import pprint
 
 iv.dps = 12
 iv.pretty = True
 
 def w(x: ctx_iv.ivmpf) -> ctx_iv.ivmpf:
-    output = iv.fmul(iv.mpf('8'), x)                    # 8x
-    output = iv.fadd(output, iv.mpf('1'))               # 8x + 1
-    output = iv.sqrt(output)                            # sqrt(8x + 1)
+    output = iv.fmul(iv.mpf('8'), x)                     # 8x
+    output = iv.fadd(output, iv.mpf('1'))                # 8x + 1
+    output = iv.sqrt(output)                             # sqrt(8x + 1)
     return output
 
 
 
 def c(x: ctx_iv.ivmpf) -> ctx_iv.ivmpf:
-    numerator = iv.fadd(w(x), iv.mpf('3'))              # w(x) + 3
-    numerator = iv.fmul(numerator, numerator)           # (w(x) + 3)^2
+    numerator = iv.fadd(w(x), iv.mpf('3'))               # w(x) + 3
+    numerator = iv.fmul(numerator, numerator)            # (w(x) + 3)^2
 
     denominator = iv.mpf('16')                           # 16
 
@@ -54,7 +55,7 @@ def s_inverse(x: ctx_iv.ivmpf) -> ctx_iv.ivmpf:
 
 
 
-def s_i(x: ctx_iv.ivmpf, i: int, print_val: bool = False) -> ctx_iv.ivmpf:
+def s_i(x: ctx_iv.ivmpf, i: int, stored_val: dict = {}) -> ctx_iv.ivmpf:
     output = x                                                                          # s_0 = x
     if i > 0:
         for _ in range(i):      # run i times
@@ -63,27 +64,21 @@ def s_i(x: ctx_iv.ivmpf, i: int, print_val: bool = False) -> ctx_iv.ivmpf:
         for _ in range(-i):     # run i times
             output = s_inverse(output)                                                  # s_i = s_{-1}(s_{i+1}(x)); i < 0
         
-    if print_val:
-        print(f's_{i} = {output}')
-
+    stored_val[f's_{i}'] = output
     return output
 
 
 
-def c_i(x: ctx_iv.ivmpf, i: int, print_val: bool = False) -> ctx_iv.ivmpf:
-    output = c(s_i(x, i, print_val))                                                               # c_i = c(s_i(x))
-    if print_val:
-        print(f'c_{i} = {output}')
-
+def c_i(x: ctx_iv.ivmpf, i: int, stored_val: dict = {}) -> ctx_iv.ivmpf:
+    output = c(s_i(x, i, stored_val))                                                   # c_i = c(s_i(x))
+    stored_val[f'c_{i}'] = output
     return output
 
 
 
-def d_i(x: ctx_iv.ivmpf, i: int, print_val: bool = False) -> ctx_iv.ivmpf:
-    output = d(s_i(x, i, print_val))                                                               # d_i = d(s_i(x))
-    if print_val:
-        print(f'd_{i} = {output}')
-        
+def d_i(x: ctx_iv.ivmpf, i: int, stored_val: dict = {}) -> ctx_iv.ivmpf:
+    output = d(s_i(x, i, stored_val))                                                   # d_i = d(s_i(x))
+    stored_val[f'd_{i}'] = output
     return output
 
 
@@ -93,16 +88,19 @@ def P_i(x: ctx_iv.ivmpf, i: int, print_val: bool = False) -> ctx_iv.ivmpf:      
     if i == 0:
         return output
     
+    stored_val: dict[str, ctx_iv.ivmpf] = {}
     for j in range(i):                                                                  # j = [0, 1, ..., i - 1]
         product = iv.mpf('1')
         for k in range(j + 1):                                                          # k = [0, 1, ..., j]
-            new_product = iv.fsub(c_i(x, k, print_val), iv.mpf('1'))                    # c_k - 1
+            new_product = iv.fsub(c_i(x, k, stored_val), iv.mpf('1'))                   # c_k - 1
             product = iv.fmul(product, new_product)                                     # (c_0 - 1)(c_1 - 1)...(c_k - 1)
 
         output = iv.fadd(output, product)                                               # P_i = 1 + (c_0 - 1) + (c_0 - 1)(c_1 - 1) + ... + (c_0 - 1)(c_1 - 1)...(c_{i-1} - 1)
 
     if print_val:
-        print(f'P_{i} = {output}\n')
+        for key in sorted(stored_val.keys()):
+            print(f'{key} = {stored_val[key]}')
+        print(f'=> P_{i} = {output}\n')
 
     return output
 
@@ -113,16 +111,19 @@ def S_i(x: ctx_iv.ivmpf, i: int, print_val: bool = False) -> ctx_iv.ivmpf:      
     if i == 0:
         return output
     
+    stored_val: dict[str, ctx_iv.ivmpf] = {}
     for j in range(i):                                                                  # j = [0, 1, ..., i - 1]
         product = iv.mpf('1')
         for k in range(j + 1):                                                          # k = [0, 1, ..., j]
-            new_product = iv.fsub(d_i(x, k, print_val), iv.mpf('1'))                    # d_k - 1
+            new_product = iv.fsub(d_i(x, k, stored_val), iv.mpf('1'))                   # d_k - 1
             product = iv.fmul(product, new_product)                                     # (d_0 - 1)(d_1 - 1)...(d_k - 1)
 
         output = iv.fadd(output, product)                                               # S_i = 1 + (d_0 - 1) + (d_0 - 1)(d_1 - 1) + ... + (d_0 - 1)(d_1 - 1)...(d_{i-1} - 1)
 
     if print_val:
-        print(f'S_{i} = {output}\n')
+        for key in sorted(stored_val.keys()):
+            print(f'{key} = {stored_val[key]}')
+        print(f'=> S_{i} = {output}\n')
 
     return output
 
@@ -133,17 +134,20 @@ def Q_i(x: ctx_iv.ivmpf, i: int, print_val: bool = False) -> ctx_iv.ivmpf:      
     if i == 1:
         return output
     
+    stored_val: dict[str, ctx_iv.ivmpf] = {}
     for j in range(1, i):                                                               # j = [1, 2, ..., i - 1]
         product = iv.mpf('1')
         for k in range(1, j + 1):                                                       # k = [1, 2, ..., j]
-            new_product = iv.fsub(c_i(x, -k, print_val), iv.mpf('1'))                   # (c_{-k} - 1)
+            new_product = iv.fsub(c_i(x, -k, stored_val), iv.mpf('1'))                  # (c_{-k} - 1)
             new_product = iv.fdiv(iv.mpf('1'), new_product)                             # (c_{-k} - 1)^{-1}
             product = iv.fmul(product, new_product)                                     # (c_{-1} - 1)(c_{-2} - 1)...(c_{-k} - 1)
 
         output = iv.fadd(output, product)                                               # Q_i = 0 + (c_{-1} - 1) + (c_{-1} - 1)(c_{-2} - 1) + ... + (c_{-1} - 1)(c_{-2} - 1)...(c_{-i+1} - 1)
 
     if print_val:
-        print(f'Q_{i} = {output}\n')
+        for key in sorted(stored_val.keys()):
+            print(f'{key} = {stored_val[key]}')
+        print(f'=> Q_{i} = {output}\n')
 
     return output
 
@@ -154,17 +158,20 @@ def T_i(x: ctx_iv.ivmpf, i: int, print_val: bool = False) -> ctx_iv.ivmpf:      
     if i == 1:
         return output
     
+    stored_val: dict[str, ctx_iv.ivmpf] = {}
     for j in range(1, i):                                                               # j = [1, 2, ..., i - 1]
         product = iv.mpf('1')
         for k in range(1, j + 1):                                                       # k = [1, 2, ..., j]
-            new_product = iv.fsub(d_i(x, -k, print_val), iv.mpf('1'))                   # (d_{-k} - 1)
+            new_product = iv.fsub(d_i(x, -k, stored_val), iv.mpf('1'))                  # (d_{-k} - 1)
             new_product = iv.fdiv(iv.mpf('1'), new_product)                             # (d_{-k} - 1)^{-1}
             product = iv.fmul(product, new_product)                                     # (d_{-1} - 1)(d_{-2} - 1)...(d_{-k} - 1)
 
         output = iv.fadd(output, product)                                               # T_i = 0 + (d_{-1} - 1) + (d_{-1} - 1)(d_{-2} - 1) + ... + (d_{-1} - 1)(d_{-2} - 1)...(d_{-i+1} - 1)
 
     if print_val:
-        print(f'T_{i} = {output}\n')
+        for key in sorted(stored_val.keys()):
+            print(f'{key} = {stored_val[key]}')
+        print(f'=> T_{i} = {output}\n')
 
     return output
 

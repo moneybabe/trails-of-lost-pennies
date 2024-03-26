@@ -24,12 +24,17 @@ def main():
     # Flatten the results
     results = [item for sublist in results for item in sublist]
 
-    lower_bounds, upper_bounds, a, b = zip(*results)
-    lower = [float(x) for x in lower_bounds]
-    upper = [float(x) for x in upper_bounds]
+    error_lower_bounds, error_upper_bounds, a, b = zip(*results)
+    error_lower_bounds = [float(x) for x in error_lower_bounds]
+    error_upper_bounds = [float(x) for x in error_upper_bounds]
     a = [float(x) for x in a]
     b = [float(x) for x in b]
-    results_df = pd.DataFrame({'a': a, 'b': b, 'lower': lower, 'upper': upper})
+    results_df = pd.DataFrame({
+        'a': a, 
+        'b': b, 
+        'error_lower_bound': error_lower_bounds, 
+        'error_upper_bound': error_upper_bounds
+    })
     results_df.to_csv('results.csv', index=False)
 
 if __name__ == '__main__':
