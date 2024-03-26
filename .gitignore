@@ -1,3 +1,4 @@
+.ipynb_checkpoints
 __pycache__
 .DS_Store
 paper.fdb_latexmk
