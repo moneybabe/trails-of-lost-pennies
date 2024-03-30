@@ -13,7 +13,7 @@ def process_interval_chunk(interval_chunk, l, k):
     return results
 
 def main():
-    interval = iv.linspace('1/3', '3', int(1e7))
+    interval = iv.arange('0.57', '0.59', '1e-7')
     workers = 8
     interval_chunks = np.array_split(np.array(list(zip(interval[:-1], interval[1:]))), workers)
 
@@ -23,15 +23,18 @@ def main():
 
     # Flatten the results
     results = [item for sublist in results for item in sublist]
-
     error_lower_bounds, error_upper_bounds, a, b = zip(*results)
     error_lower_bounds = [float(x) for x in error_lower_bounds]
     error_upper_bounds = [float(x) for x in error_upper_bounds]
-    a = [float(x) for x in a]
-    b = [float(x) for x in b]
+    a_lower_bounds = [float(x.a) for x in a]
+    a_upper_bounds = [float(x.b) for x in a]
+    b_lower_bounds = [float(x.a) for x in b]
+    b_upper_bounds = [float(x.b) for x in b]
     results_df = pd.DataFrame({
-        'a': a, 
-        'b': b, 
+        'a_lower_bound': a_lower_bounds,
+        'a_upper_bound': a_upper_bounds,
+        'b_lower_bound': b_lower_bounds,
+        'b_upper_bound': b_upper_bounds,
         'error_lower_bound': error_lower_bounds, 
         'error_upper_bound': error_upper_bounds
     })
