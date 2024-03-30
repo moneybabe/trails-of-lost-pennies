@@ -2,21 +2,21 @@
 
 This project contains computations for the "Trails of Lost Pennies" problem,
 specifically pertaining to lowering bounding the value $\lambda =
-\inf\{\mathcal{M}(x):x\in(0,\infty)\}$ by approximating through the finite
+\inf\{\mathcal{M}(x):x\in(0,\infty)\}$ by approximation through the finite
 counterpart to get $\lambda \geq \inf\{\mathcal{M}_{5,4}(x): x\in[1/3, 3]\} - 6.3\times
 10^{-7}$. You can verify the computations by
 running the `verify.ipynb`
 Jupyter notebook.
 
 ## Setup
-If you are not familiar with command line interface, you can go the the Google Colab 
+If you are not familiar with command line interface, you can go to the Google Colab 
 notebook
 [here](https://colab.research.google.com/drive/1Whg0Gip34kKrnB-VTfhF524NNhN-H2WD?usp=sharing)
-and make a copy to directly run the verifying computations.
+and make a copy to directly run the verifying computations on broswer.
 
 Otherwise, if you are familiar with the command line and would like to run the 
 verifying notebook locally, or even run the entire computation for the proof
-from scratch (which might takes hours depending on your hardware), 
+from scratch (which might take hours depending on your hardware), 
 follow the instructions below.
 
 ## Prerequisites
