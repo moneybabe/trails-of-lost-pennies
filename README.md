@@ -1,6 +1,6 @@
-# Trails of Lost Pennies
+# Trail of Lost Pennies
 
-This project contains computations for the "Trails of Lost Pennies" problem,
+This project contains computations for the "Trail of Lost Pennies" problem,
 specifically pertaining to lowering bounding the value $\lambda =
 \inf\{\mathcal{M}(x):x\in(0,\infty)\}$ by approximation through the finite
 counterpart to get $\lambda \geq \inf\{\mathcal{M}_{5,4}(x): x\in[1/3, 3]\} - 6.3\times
